@@ -372,9 +372,9 @@ const MatchCard = ({ match }) => {
   //   }, []);
 
   const [team1, setTeam1] = useState(match.team1); // Replace with actual team names
-  if (match.tossWinner == team1.name) {
-    setTeam1(match.tossWinner);
-  }
+  // if (match.tossWinner == team1.name) {
+  //   setTeam1(match.tossWinner);
+  // }
 
   const [currentOverA, setCurrentOverA] = useState(0);
   const [currentOverB, setCurrentOverB] = useState(0);
@@ -428,7 +428,7 @@ const MatchCard = ({ match }) => {
         //   setIsMatchOver(true);
         // }
       }
-    }, 30000); // Update every 30 seconds
+    }, 300); // Update every 30 seconds
 
     // Clear interval when the component is unmounted or match is over
     return () => clearInterval(ballUpdateInterval);
@@ -453,7 +453,7 @@ const MatchCard = ({ match }) => {
         date: "14th March",
         tournamentOrganisingBody: "ICC Cricket World Cup 2023",
         team1: {
-          name: liveMatchDetails[0].tossWinner,
+          name: liveMatchDetails[0].team1.name,
           score: team1Score,
           outPlayers: outPlayers1,
           over: currentOverA + "." + (!isMatchOverA ? currentBall : 0),
