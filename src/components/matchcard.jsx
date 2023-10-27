@@ -428,7 +428,7 @@ const MatchCard = ({ match }) => {
         //   setIsMatchOver(true);
         // }
       }
-    }, 300); // Update every 30 seconds
+    }, 30000); // Update every 30 seconds
 
     // Clear interval when the component is unmounted or match is over
     return () => clearInterval(ballUpdateInterval);
