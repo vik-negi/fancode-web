@@ -16,6 +16,7 @@ function Parllel() {
   const fetchMatchData = async () => {
     const data = await axios.get(
       "https://cricket-api-lilac.vercel.app/api/cricket/matchs"
+      // "https://cricbuzz-api-next.vercel.app/api/"
     );
     console.log(data.data.data);
     if (data) {

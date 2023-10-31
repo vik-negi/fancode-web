@@ -2,6 +2,21 @@ import React, { useEffect, useState } from "react";
 import "./CoinToss.css";
 const CardItems = ({ match }) => {
   console.log("match", match);
+
+  const compareDate = (dateString) => {
+    const today = new Date();
+    const givenDate = new Date(dateString + " " + today.getFullYear());
+    givenDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    if (givenDate.toDateString() === today.toDateString()) {
+      return "live";
+    } else if (givenDate > today) {
+      return "upcoming";
+    } else {
+      return "Recents";
+    }
+  };
   return (
     <li className="cb-view-all-ga cb-match-card cb-bg-white">
       <a
@@ -19,6 +34,23 @@ const CardItems = ({ match }) => {
           <div className="cb-card-match-format text-center text-white cb-mtch-frmt-bg-odi">
             ODI
           </div>
+        </div>
+        <div
+          title="Australia"
+          style={{
+            marginLeft: "10px",
+          }}
+          className="text-normal"
+        >
+          <span style={{ color: "#000000" }}>Toss Winner : </span>{" "}
+          {match.tossWinner || match.team1.name}
+        </div>
+        <div
+          style={{
+            marginLeft: "10px",
+          }}
+        >
+          <p>{match.date}</p>
         </div>
         <div>
           <div className="cb-hmscg-bwl-txt">
@@ -42,6 +74,7 @@ const CardItems = ({ match }) => {
                     className="imagestyled__StyledImg-sc-rhrvi4-0 live-score-match-scorestyled__SquadFlag-sc-v80ryq-1 gWrsLz"
                   />
                 </picture>
+
                 {/* <div className="live-score-match-scorestyled__SquadViewContainer-sc-v80ryq-0 bEwJP"> */}
                 {/* <picture>
                                         <source
@@ -105,9 +138,10 @@ const CardItems = ({ match }) => {
                 </span>
               </div>
               <div className="cb-col-50 cb-ovr-flo">
-                {match.team1.score}-
-                {match.team1.outPlayers && match.team1.outPlayers}(
-                {match.team1.over})
+                {compareDate(match.date) == "live"
+                  ? match.team1.score - match.team1.outPlayers &&
+                    match.team1.outPlayers(match.team1.over)
+                  : ""}
               </div>
             </div>
           </div>
@@ -188,9 +222,10 @@ const CardItems = ({ match }) => {
                 className="cb-col-50 cb-ovr-flo"
                 style={{ display: "inline-block" }}
               >
-                {match.team2.score}-
-                {match.team2.outPlayers && match.team2.outPlayers}(
-                {match.team2.over})
+                {compareDate(match.date) == "live"
+                  ? match.team2.score - match.team2.outPlayers &&
+                    match.team2.outPlayers(match.team2.over)
+                  : ""}
               </div>
             </div>
           </div>
@@ -198,7 +233,7 @@ const CardItems = ({ match }) => {
             title="Australia won by 5 wkts"
             className="cb-mtch-crd-state cb-ovr-flo cb-font-12 cb-text-complete"
           >
-            {match.statement}
+            {compareDate(match.date)}
           </div>
         </div>
       </a>
@@ -525,7 +560,7 @@ const MatchCard = ({ match }) => {
               className="videos-list-carousal hgt-145 ng-isolate-scope"
               total={6}
               minLength={3}
-              style={{ width: "250px" }}
+              style={{ width: "250px", height: "160px" }}
               pagename="homepage"
             >
               {/* Use flexbox and overflow properties for horizontal scrolling */}
